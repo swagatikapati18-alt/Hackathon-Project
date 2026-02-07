@@ -1,28 +1,47 @@
-// Intersection Observer for Smooth "Nirman" Style Reveals
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
+// Updated script.js with enhanced animations, parallax effects, and more interactive features
+
+// Implement parallax effect
+const parallax = () => {
+    const layers = document.querySelectorAll('.parallax layer');
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset;
+        layers.forEach((layer, index) => {
+            let depth = index / 100;
+            let movement = (scrollTop * depth);
+            layer.style.transform = `translateY(${movement}px)`;
+        });
     });
-}, { threshold: 0.1 });
+};
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+parallax();
 
-// Smooth FAQ Accordion
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-        const faqItem = button.parentElement;
-        const answer = button.nextElementSibling;
-        const isOpen = faqItem.classList.contains('active-faq');
-
-        // Close all other FAQs
-        document.querySelectorAll('.faq-answer').forEach(el => el.style.maxHeight = null);
-        document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active-faq'));
-
-        if (!isOpen) {
-            faqItem.classList.add('active-faq');
-            answer.style.maxHeight = answer.scrollHeight + "px";
-        }
+// Enhanced animations using GSAP
+const animateElements = () => {
+    const elements = document.querySelectorAll('.animate');
+    elements.forEach((element) => {
+        gsap.from(element, {
+            duration: 1,
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 80%"
+            }
+        });
     });
-});
+};
+
+animateElements();
+
+// Interactivity
+const interactiveFeature = () => {
+    const buttons = document.querySelectorAll('.interactive-btn');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            alert('Button clicked! More features are on the way!');
+        });
+    });
+};
+
+interactiveFeature();
